@@ -5,10 +5,9 @@ from nltk.sentiment import SentimentIntensityAnalyzer
 
 nltk.download('vader_lexicon')
 
-# Sample dataset
 data = {
     'review': [
-        'I love this product, it is amazing!',
+        'Elon Musk’s focus on grand visions like colonizing Mars sometimes leads to neglecting immediate, practical issues at Tesla and SpaceX. The recent production delays and quality control problems at Tesla are a clear indication that he needs to balance his visionary projects with effective management of current operations.',
         'Terrible experience, I hate it.',
         'This is the best thing I have ever bought.',
         'Worst purchase ever, not happy with it.',
@@ -60,10 +59,8 @@ data = {
     ]
 }
 
-# Create a DataFrame
 df = pd.DataFrame(data)
 
-# Initialize Sentiment Intensity Analyzer
 sia = SentimentIntensityAnalyzer()
 
 def analyze_sentiment(review):
@@ -75,27 +72,22 @@ def analyze_sentiment(review):
     else:
         return 'neutral'
 
-# Streamlit app
 st.title('Sentiment Analysis App')
 st.write('This app analyzes the sentiment of a given review.')
 
-# Display sample data
 st.subheader('Sample Reviews')
 st.write(df.head(10))
 
-# User input
 user_input = st.text_area('Enter a review:', '')
 if st.button('Generate'):
     if user_input:
-        # Predict sentiment
+
         sentiment = analyze_sentiment(user_input)
         st.write(f'Sentiment: {sentiment}')
     else:
         st.write('Please enter a review.')
 
-# Analyze sample data
 df['predicted_sentiment'] = df['review'].apply(analyze_sentiment)
 
-# Display the results
 st.subheader('Sentiment Analysis Results')
 st.write(df)
